@@ -58,6 +58,18 @@ function TodoList() {
     setCurentTodo(null); // khi đã edit xong rồi thì cho setCurentTodo =null đẻ nó xóa dữ liệu trong ô input
   };
 
+  const deleteTodo = (id: string) => {
+    setTodos((prev) => {
+      const findIndexTodo = prev.findIndex((todo) => todo.id === id);
+      if (findIndexTodo > -1) {
+        const result = [...prev];
+        result.splice(findIndexTodo, 1);
+        return result;
+      }
+      return prev;
+    });
+  };
+
   return (
     <div className={style.todoList}>
       <div className={style.todoListContainer}>
@@ -71,12 +83,14 @@ function TodoList() {
           todos={notDoneTodo}
           handleDoneTodo={handleDoneTodo}
           startEditTodo={startEditTodo}
+          deleteTodo={deleteTodo}
         />
         <TaskList
           doneTaskList
           todos={doneTodo}
           handleDoneTodo={handleDoneTodo}
           startEditTodo={startEditTodo}
+          deleteTodo={deleteTodo}
         />
       </div>
     </div>
